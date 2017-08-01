@@ -1,77 +1,106 @@
 
 var animals=["LION","TIGER","ELEPHANT","DEER","BEAR","TIGER","WOLF"];
 var guesses = 12; 
-var gameOver=false;
+var winCount=0; 
+var loseCount=0;
 var guessesSoFar = [];
-var computerGuess=animals[Math.floor(Math.random() * animals.length)];
-	  console.log(computerGuess);
-var computerGuess_word = computerGuess.split([]);
+var computerGuess;
+var computerGuess_word ;
+var length  ;
+var empty_word;
+var gameResult; 
+
+
+function reset(){
+ guessesSoFar = [];
+ computerGuess=animals[Math.floor(Math.random() * animals.length)];
+    console.log(computerGuess);
+ computerGuess_word = computerGuess.split([]);
     console.log(computerGuess_word)
-var length = computerGuess_word.length;
+ length = computerGuess_word.length;
     console.log(length) ;
-var empty_word=[length];
+ empty_word=[length];
     console.log(empty_word);
+ gameResult= false; 
+ for (var i = 0; i < length; i++) 
+    {
+      empty_word[i] = "_";      
+    }
+document.querySelector("#userText").innerHTML = empty_word;
+document.querySelector("#guessesLeft").innerHTML = guesses;
+var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar+"</span></p>";
+document.querySelector("#guessesMade").innerHTML = html;
+}   
 
 window.onload = function() {
-      for (var i = 0; i < length; i++) 
-          {
-           empty_word[i] = "_";      
-          }
-      document.querySelector("#userText").innerHTML = empty_word;
-          console.log(empty_word)
+  reset();
+  document.querySelector("#wins").innerHTML="Wins:" + winCount;
+     
 } ; //onload ends
 
-
-document.onkeyup = function(event) {
-
-      // Determines which key was pressed.
+function process(event){
+        // Determines which key was pressed.
       var userGuess = event.key;
         console.log(userGuess)
       userGuess = userGuess.toUpperCase();
-      guessesSoFar.push(userGuess);
+      if(!guessesSoFar.includes(userGuess)){
+        guessesSoFar.push(userGuess);
+      }
+      
         console.log(guessesSoFar)
       
       if((guesses - guessesSoFar.length)<=0)
-      	{
-      		over =
-            "<p><img src='assets/images/gameover.jpg' width='530' height='340' ></p>" ;
-      		 document.querySelector("#total").innerHTML=over;
-      	}
+        {
+          loseCount++;
+          gameResult=false;
+          reset();
+
+        }
         else
         {
             
-      	    for(var i=0;i<length;i++)
-      	      {
-      		     if(userGuess===computerGuess_word[i])
-      		      {
-      			     console.log(empty_word)
-      			     empty_word[i]=userGuess;
-      			     console.log(empty_word)      			
-      		      }		
-             	}
+            for(var i=0;i<length;i++)
+              {
+               if(userGuess===computerGuess_word[i])
+                {
+                 console.log(empty_word)
+                 empty_word[i]=userGuess;
+                 console.log(empty_word)            
+                }   
+              }
 
-      	var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar+"</span></p>";
+        var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar+"</span></p>";
         document.querySelector("#guessesMade").innerHTML = html;
         document.querySelector("#guessesLeft").innerHTML = guesses - guessesSoFar.length;
         document.querySelector("#userText").innerHTML = empty_word;
 
-      	}// else ends
+        }// else ends
 
-      		var win = true;
-      		    for(var j=0;j<empty_word.length;j++)
-              {      			
-                if(empty_word[j]==='_')
-                {
-               	  win = false;
-                }               
-      		    }
+           gameResult = !empty_word.includes("_");
+           if(gameResult)
+             {
+                winCount++;
+               document.querySelector("#wins").innerHTML="Wins" + winCount;
+             }
+             console.log("empty_word"+empty_word);
+             console.log("Win: win count "+gameResult + winCount );
+             if(gameResult){
+              //Reset
+              reset();
+
+             }
+
+}
 
 
-      		  if(win)
-      		   {
-                winner = "<p><img src='assets/images/win1.png' width='500' height='120'></p>";
-      			    document.querySelector("#guessesMade").innerHTML=winner;
-      		   }
+document.onkeyup = function(event) {
+      if (event.keyCode < 65 || event.keyCode > 90) { 
+              document.getElementById("your-guess").innerHTML = "Please enter a key between A to Z!"
+          } else {
+              process(event);
+          }
+    
+
       }; //event function ends 	
       
 
