@@ -31,7 +31,7 @@ document.querySelector("#guessesMade").innerHTML = html;
 
 window.onload = function() {
   reset();
-  document.querySelector("#wins").innerHTML="Wins:" + winCount;
+  document.querySelector("#wins").innerHTML="Wins :" + winCount;
      
 } ; //onload ends
 
@@ -78,7 +78,7 @@ function process(event){
            if(gameResult)
              {
                 winCount++;
-               document.querySelector("#wins").innerHTML="Wins" + winCount;
+               document.querySelector("#wins").innerHTML="Wins :" + winCount;
              }
              console.log("empty_word"+empty_word);
              console.log("Win: win count "+gameResult + winCount );
