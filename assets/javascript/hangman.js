@@ -1,5 +1,6 @@
 
-var animals=["LION","TIGER","ELEPHANT","DEER","BEAR","TIGER","WOLF","DOG","CAT","HORSE","DONKEY","MONKEY","GOAT"];
+var animals=["LION","TIGER","ELEPHANT","DEER","BEAR","WOLF","DOG","CAT","HORSE","DONKEY","MONKEY","GOAT"];
+
 var guesses = 12; 
 var winCount=0; 
 var loseCount=0;
@@ -23,9 +24,9 @@ function reset(){
     {
       empty_word[i] = "_";      
     }
-document.querySelector("#userText").innerHTML = empty_word;
+document.querySelector("#userText").innerHTML = empty_word.join(" ");
 document.querySelector("#guessesLeft").innerHTML = guesses;
-var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar+"</span></p>";
+var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar.join(" ")+"</span></p>";
 document.querySelector("#guessesMade").innerHTML = html;
 }; //reset function ends.  
 
@@ -67,10 +68,10 @@ function process(event){
                 }   
               }
 
-        var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar+"</span></p>";
+        var html="<p><span >Your gusses so far: </span><span style='color:white'>"+ guessesSoFar.join(" ")+"</span></p>";
         document.querySelector("#guessesMade").innerHTML = html;
         document.querySelector("#guessesLeft").innerHTML = guesses - guessesSoFar.length;
-        document.querySelector("#userText").innerHTML = empty_word;
+        document.querySelector("#userText").innerHTML = empty_word.join(" ");
 
         }// else ends
 
@@ -84,6 +85,8 @@ function process(event){
              console.log("Win: win count "+gameResult + winCount );
              if(gameResult){
               //Reset
+              var imageHTML="<img src='./assets/images/"+empty_word.join("")+".png' height='100' width='140'> </img>";
+              document.querySelector("#lastWin").innerHTML=imageHTML;
               reset();
 
              }
