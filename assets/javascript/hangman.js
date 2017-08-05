@@ -85,7 +85,7 @@ function process(event){
              console.log("Win: win count "+gameResult + winCount );
              if(gameResult){
               //Reset
-              var imageHTML="<img src='./assets/images/"+empty_word.join("")+".png' height='100' width='140'> </img>";
+              var imageHTML="<img src='./assets/images/"+empty_word.join("")+".PNG' height='100' width='140'> </img>";
               document.querySelector("#lastWin").innerHTML=imageHTML;
               reset();
 
